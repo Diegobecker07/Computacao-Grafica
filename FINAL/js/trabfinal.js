@@ -6,6 +6,10 @@ var material,floor;
 var pontos = 0;
 
 var iniciar = false;
+var esquerda = false;
+var direita = false;
+var cima = false;
+var baixo = false;
 
 var objetosCarregados = [];
 
@@ -13,6 +17,7 @@ var render = () => {
     requestAnimationFrame(render);
     //document.getElementById("points").innerHTML = pontos + " Pontos";
     //pontos++;
+    verifica();
     renderer.render(scene, camera);
 };
 
@@ -26,7 +31,7 @@ createFloor = () =>{
     floorTexture.encoding = THREE.sRGBEncoding;
 
     floor = new  THREE.Mesh(
-        new THREE.PlaneGeometry(1050, 1050, 25,25),
+        new THREE.PlaneGeometry(1000000, 1000000, 25,25),
         new THREE.MeshBasicMaterial({map : floorTexture})
     );
 
@@ -73,6 +78,22 @@ loadObj = () =>{
         });
 };
 
+function verifica(){
+    if(esquerda){
+
+    }
+    else if(direita){
+
+    }
+    else if(cima){
+        camera.position.z -= 0.5;
+        objetosCarregados[0].position.z -= 0.5;
+    }
+    else if(baixo){
+        
+    }
+}
+
 window.onload = () =>{
 
     scene = new THREE.Scene();
@@ -105,16 +126,20 @@ window.onload = () =>{
 		switch(keycode)
 		{
 			case 37:
-				console.log("Apertou seta esquerda");
+                console.log("Apertou seta esquerda");
+                esquerda = true;
 				break;
 			case 38:
-				console.log("Apertou seta cima");
+                console.log("Apertou seta cima");
+                cima = true;
 				break;
 			case 39:
-				console.log("Apertou seta direita");
+                console.log("Apertou seta direita");
+                direita = true;
 				break;
 			case 40:
-				console.log("Apertou seta baixo");
+                console.log("Apertou seta baixo");
+                baixo = true;
 				break;
 			}
     });
@@ -124,16 +149,20 @@ window.onload = () =>{
 		switch(keycode)
 		{
 			case 37:
-				console.log("Largou esq");
+                console.log("Largou esq");
+                esquerda = false;
 				break;
 			case 38:
-				console.log("Largou cima");
+                console.log("Largou cima");
+                cima = false;
 				break;
 			case 39:
-				console.log("Largou direita");
+                console.log("Largou direita");
+                direita = false;
 				break;
 			case 40:
-				console.log("Largou baixo");
+                console.log("Largou baixo");
+                baixo = false;
 				break;
 			}
     });
