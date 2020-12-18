@@ -6,9 +6,22 @@
         <style>
             body { margin: 0; }
             canvas { width: 98%; height: 98% }
+            #points{
+                position: fixed;
+                left: 15px;
+                top: 5px;
+                font-weight: bold;
+                color: blue;
+                font-size: 50px;
+            }
         </style>
     </head>
     <body>
+
+        <div id="points">
+            0 pontos
+        </div>
+
         <script src="js/three.min.js"></script>
         <script src="js/dat.gui.min.js"></script>
         <script src="js/OBJLoader.js"></script>
