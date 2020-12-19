@@ -26,12 +26,12 @@ createFloor = () =>{
     var floorTexture = textureLoader.load('assets/textura/terrain/floor.png');
 
     floorTexture.wrapS = floorTexture.wrapT = THREE.RepeatWrapping;
-    floorTexture.repeat.set( 20, 20 );
+    floorTexture.repeat.set(20, 20);
     floorTexture.anisotropy = 16;
     floorTexture.encoding = THREE.sRGBEncoding;
 
     floor = new  THREE.Mesh(
-        new THREE.PlaneGeometry(1000000, 1000000, 25,25),
+        new THREE.PlaneGeometry(1000, 1000, 25,25),
         new THREE.MeshBasicMaterial({map : floorTexture})
     );
 
@@ -80,14 +80,33 @@ loadObj = () =>{
 
 function verifica(){
     if(esquerda){
-
+        if(objetosCarregados[0].position.x <= -5){
+            console.log("Limite atingido");
+        }
+        else{
+            objetosCarregados[0].position.x -= 0.04;
+            console.log("Pos carro X: " + objetosCarregados[0].position.x);
+        }   
     }
+
     else if(direita){
-
+        if(objetosCarregados[0].position.x >= 5){
+            console.log("Limite atingido");
+        }
+        else{
+            objetosCarregados[0].position.x += 0.04;
+            console.log("Pos carro X: " + objetosCarregados[0].position.x);
+        }   
     }
+    
     else if(cima){
         camera.position.z -= 0.5;
         objetosCarregados[0].position.z -= 0.5;
+        console.log("Pos carro Z: " + objetosCarregados[0].position.z);
+        if(objetosCarregados[0].position.z == -300){
+            objetosCarregados[0].position.z = 0;
+            camera.position.z = 10;
+        }
     }
     else if(baixo){
         
