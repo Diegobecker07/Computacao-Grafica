@@ -6,8 +6,8 @@ var material, floor;
 var pontos = 0;
 
 var velocidade = false;
-var velocidade1 = 0.5;
-var velocidade2 = 0.06;
+var velocidade1 = 0.3;
+var velocidade2 = 0.08;
 
 var iniciar = false;
 var esquerda = false;
@@ -22,7 +22,7 @@ function verifica() {
     camera.position.z -= 0.5;
       objetosCarregados[0].position.z -= 0.5;
       //console.log("Pos carro Z: " + objetosCarregados[0].position.z);
-      if(objetosCarregados[0].position.z == -300){
+      if(objetosCarregados[0].position.z == -70){
           objetosCarregados[0].position.z = 0;
           camera.position.z = 10;
       }
@@ -36,7 +36,20 @@ function verifica() {
     esquerda = false;
   }   
 
-  console.log("Pos carro X: " + objetosCarregados[0].position.x);
+  if(objetosCarregados[0].position.z == -60){
+    let a = Math.floor(Math.random() * 2);
+        if(a == 1){
+          objetosCarregados[1].position.x = Math.floor(Math.random() * 5);
+        }
+        else{
+          objetosCarregados[1].position.x = Math.floor(Math.random() * -5);
+        }
+  }
+  //console.log("Pos carro X: " + objetosCarregados[0].position.x);
+}
+
+function colisao(){
+  
 }
 
 var render = () => {
@@ -44,6 +57,7 @@ var render = () => {
   //document.getElementById("points").innerHTML = pontos + " Pontos";
   //pontos++;
   verifica();
+  colisao();
   renderer.render(scene, camera);
 };
 
@@ -71,7 +85,7 @@ loadObj = () => {
   var fbxLoader = new THREE.FBXLoader();
   var textureLoader = new THREE.TextureLoader();
   fbxLoader.load(
-    "assets/models/Police Car.fbx",
+    "assets/models//plc/Police Car.fbx",
     (object) => {
       objetosCarregados[0] = object;
 
@@ -79,7 +93,7 @@ loadObj = () => {
         if (child instanceof THREE.Mesh) {
           console.log(child);
           child.material.map = textureLoader.load(
-            "assets/models/UVPoliceCar.png"
+            "assets/models/plc/UVPoliceCar.png"
           );
           child.material.shininess = 0;
           child.castShadow = true;
@@ -108,6 +122,50 @@ loadObj = () => {
       console.log("Deu caca: " + error);
     }
   );
+    
+    fbxLoader.load(
+      "assets/models/tree/ChristmasTree.fbx",
+      (object) => {
+        objetosCarregados[1] = object;
+  
+        object.traverse(function (child) {
+          if (child instanceof THREE.Mesh) {
+            console.log(child);
+            child.material.map = textureLoader.load(
+              "assets/models/tree/UV Christmas Tree.png"
+            );
+            child.material.shininess = 0;
+            child.castShadow = true;
+            child.receiveShadow = true;
+          }
+        });
+  
+        object.scale.x = 0.004;
+        object.scale.y = 0.004;
+        object.scale.z = 0.004;
+        object.position.y = -1.5;
+        object.position.z = -50;
+
+        let a = Math.floor(Math.random() * 2);
+        if(a == 1){
+          object.position.x = Math.floor(Math.random() * 5);
+        }
+        else{
+          object.position.x = Math.floor(Math.random() * -5);
+        }
+
+        
+
+        scene.add(object);
+      },
+      (andamento) => {
+        console.log((andamento.loaded / andamento.total) * 100 + "% pronto!");
+      },
+      (error) => {
+        console.log("Deu caca: " + error);
+      }
+    );
+
   cima = true;
 };
 
