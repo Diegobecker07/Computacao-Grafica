@@ -4,6 +4,7 @@ var animationActions = Array();
 
 var material, floor;
 var pontos = 0;
+var carregado = false;
 
 var velocidade = false;
 var velocidade1 = 0.3;
@@ -49,15 +50,22 @@ function verifica() {
 }
 
 function colisao(){
-  
+
+    if((objetosCarregados[0].position.x == objetosCarregados[1].position.x) && objetosCarregados[0].position.z == objetosCarregados[1].position.z){
+      alert("Você perdeu!\nColidiu na árvore do Papai Noel :p");
+      setTimeout("location.reload(true);", 0);
+    }
+
 }
 
 var render = () => {
   requestAnimationFrame(render);
   //document.getElementById("points").innerHTML = pontos + " Pontos";
   //pontos++;
-  verifica();
-  colisao();
+  if(carregado){
+    verifica();
+    colisao();
+  }
   renderer.render(scene, camera);
 };
 
@@ -167,6 +175,7 @@ loadObj = () => {
     );
 
   cima = true;
+  carregado = true;
 };
 
 window.onload = () => {
