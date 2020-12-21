@@ -51,11 +51,15 @@ function verifica() {
 
 function colisao(){
 
-    if((objetosCarregados[0].position.x == objetosCarregados[1].position.x) && objetosCarregados[0].position.z == objetosCarregados[1].position.z){
-      alert("Você perdeu!\nColidiu na árvore do Papai Noel :p");
-      setTimeout("location.reload(true);", 0);
-    }
-
+  if((objetosCarregados[0].position.z == objetosCarregados[1].position.z) && (Math.ceil(objetosCarregados[0].position.x) == objetosCarregados[1].position.x || Math.trunc(objetosCarregados[0].position.x) == objetosCarregados[1].position.x)){
+    alert("Você perdeu!\nColidiu na árvore do Papai Noel :p");
+    setTimeout("location.reload(true);", 0);
+  }
+  else if(objetosCarregados[0].position.z == objetosCarregados[1].position.z){
+    pontos++;
+    document.getElementById("points").innerHTML = pontos + " Pontos";
+  }
+  //console.log(objetosCarregados[0].position.z + " - " + objetosCarregados[1].position.z);
 }
 
 var render = () => {
